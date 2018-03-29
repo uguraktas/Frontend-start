@@ -1,0 +1,451 @@
+﻿/*----------------------------------------------------------------------------------------------*/
+/*  PURE SCSS LIBRARY                                                                           */
+/*----------------------------------------------------------------------------------------------*/
+/*                                                                                              */
+/*  Name    :   Mixins                                                                          */
+/*  Version :   1.0.0                                                                           */
+/*  Git     :   https://github.com/TuruncuInternetSolutions/pure.git                            */
+/*                                                                                              */
+/*  by Turuncu Internet Solutions                                                               */
+/*  www.turuncuweb.net                                                                          */
+/*                                                                                              */
+/*----------------------------------------------------------------------------------------------*/
+/* @extend @include pure-clearfix(); */
+/* @extend %pure-clearfix; */
+/*-------------------------------------------------------------------------------------------*/
+@mixin pure-clearfix {
+    &:before,
+    &:after {
+        content: "";
+        display: table;
+    }
+
+    &:after {
+        clear: both;
+    }
+
+    zoom: 1;
+}
+
+%pure-clearfix {
+    &:before,
+    &:after {
+        content: "";
+        display: table;
+    }
+
+    &:after {
+        clear: both;
+    }
+
+    zoom: 1;
+}
+
+/*-------------------------------------------------------------------------------------------*/
+/* @include pure-prefix((transliton: all 0.5s ease-out), webkit); */
+/*-------------------------------------------------------------------------------------------*/
+@mixin pure-prefix($map, $vendors: webkit moz ms o) {
+    @each $prop, $value in $map {
+        @if $vendors {
+            @each $vendor in $vendors {
+                #{"-" + $vendor + "-" + $prop}: #{$value};
+            }
+        }
+
+        #{$prop}: #{$value};
+    }
+}
+/*-------------------------------------------------------------------------------------------*/
+/* @include pure-position(absolute, $top: 10px, $left: 10px); */
+/*-------------------------------------------------------------------------------------------*/
+@mixin pure-position($type, $top: null, $right: null, $bottom: null, $left: null) {
+    position: $type;
+    top: $top;
+    right: $right;
+    bottom: $bottom;
+    left: $left;
+}
+/*-------------------------------------------------------------------------------------------*/
+/* @include pure-size(450px,150px); */
+/*-------------------------------------------------------------------------------------------*/
+@mixin pure-size($width, $height: $width) {
+    width: $width;
+    height: $height;
+}
+/*-------------------------------------------------------------------------------------------*/
+/* @include pure-line-height(16); */
+/*-------------------------------------------------------------------------------------------*/
+@mixin pure-line-height($heightValue: 16) {
+    line-height: $heightValue + px;
+    line-height: (0.125 * $heightValue) + rem;
+}
+/*-------------------------------------------------------------------------------------------*/
+/* @include pure-opacity(0.5) */
+/*-------------------------------------------------------------------------------------------*/
+@mixin pure-opacity($opacity) {
+    filter: unquote("progid:DXImageTransform.Microsoft.Alpha(Opacity=#{round($opacity * 100)})");
+    opacity: $opacity;
+}
+/*-------------------------------------------------------------------------------------------*/
+/* @include pure-side-line(); */
+/*-------------------------------------------------------------------------------------------*/
+@mixin pure-side-line($height: 1px, $space: 0.5em, $color: inherit, $style: solid, $adjust: false, $double: false) {
+    display: block;
+    overflow: hidden;
+    text-align: center;
+
+    &:before,
+    &:after {
+        content: "";
+        display: inline-block;
+        vertical-align: middle;
+        position: relative;
+        width: 50%;
+        border-top-style: $style;
+        border-top-width: $height;
+
+        @if $color !=inherit {
+            border-top-color: $color;
+        }
+
+        @if $adjust !=false {
+            bottom: $adjust;
+        }
+
+        @if $double !=false {
+            height: $double;
+            border-bottom-style: $style;
+            border-bottom-width: $height;
+
+            @if $color !=inherit {
+                border-bottom-color: $color;
+            }
+        }
+    }
+
+    &:before {
+        right: $space;
+        margin-left: -50%;
+    }
+
+    &:after {
+        left: $space;
+        margin-right: -50%;
+    }
+}
+/*-------------------------------------------------------------------------------------------*/
+/* @include pure-stitched(#ff0000, #ffffff, 5px, 5px); */
+/*-------------------------------------------------------------------------------------------*/
+@mixin pure-stitched($bgColor: #000, $dashColor: #fff, $dashPadding: 5px, $dashWeight: 4px) {
+    background: $bgColor;
+    border: $dashWeight dashed $dashColor;
+    box-shadow: 0 0 0 $dashPadding $bgColor;
+}
+/*-------------------------------------------------------------------------------------------*/
+/* @include pure-dont-break-out(); */
+/*-------------------------------------------------------------------------------------------*/
+@mixin pure-dont-break-out() {
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    -ms-word-break: break-all;
+    word-break: break-all;
+    word-break: break-word;
+    -ms-hyphens: auto;
+    -moz-hyphens: auto;
+    -webkit-hyphens: auto;
+    hyphens: auto;
+}
+/*-------------------------------------------------------------------------------------------*/
+/* @include pure-triangle("up", 2rem, 1rem, #b25c9c);  */
+/*-------------------------------------------------------------------------------------------*/
+@mixin pure-triangle( $direction, $width, $height, $color ) {
+    @if not index( "up" "up-right" "right" "down-right" "down" "down-left" "left" "up-left", $direction ) {
+        @error "Direction must be `up`, `up-right`, `right`, `down-right`, " + "`down`, `down-left`, `left` or `up-left`.";
+    }
+    @else if not _is-color($color) {
+        @error "`#{$color}` is not a valid color for the `$color` argument in " + "the `triangle` mixin.";
+    }
+    @else {
+        &:before {
+            content: "";
+            border-style: solid;
+            height: 0;
+            width: 0;
+
+            @if $direction == "up" {
+                border-color: transparent transparent $color;
+                border-width: 0 ($width / 2) $height;
+            }
+            @else if $direction == "up-right" {
+                border-color: transparent $color transparent transparent;
+                border-width: 0 $width $width 0;
+            }
+            @else if $direction == "right" {
+                border-color: transparent transparent transparent $color;
+                border-width: ($height / 2) 0 ($height / 2) $width;
+            }
+            @else if $direction == "down-right" {
+                border-color: transparent transparent $color;
+                border-width: 0 0 $width $width;
+            }
+            @else if $direction == "down" {
+                border-color: $color transparent transparent;
+                border-width: $height ($width / 2) 0;
+            }
+            @else if $direction == "down-left" {
+                border-color: transparent transparent transparent $color;
+                border-width: $width 0 0 $width;
+            }
+            @else if $direction == "left" {
+                border-color: transparent $color transparent transparent;
+                border-width: ($height / 2) $width ($height / 2) 0;
+            }
+            @else if $direction == "up-left" {
+                border-color: $color transparent transparent;
+                border-width: $width $width 0 0;
+            }
+        }
+    }
+}
+/*-------------------------------------------------------------------------------------------*/
+/* @include pure-push-auto();  */
+/*-------------------------------------------------------------------------------------------*/
+@mixin pure-push-auto {
+    margin: {
+        left: auto;
+        right: auto;
+    }
+}
+/*-------------------------------------------------------------------------------------------*/
+/* @include pure-pseudo();  */
+/*-------------------------------------------------------------------------------------------*/
+@mixin pure-pseudo($display: block, $pos: absolute, $content: '') {
+    content: $content;
+    display: $display;
+    position: $pos;
+}
+/*-------------------------------------------------------------------------------------------*/
+/* @include pure-responsive-ratio(16,9);  */
+/*-------------------------------------------------------------------------------------------*/
+@mixin pure-responsive-ratio($x,$y, $pseudo: false) {
+    $padding: unquote( ( $y / $x ) * 100 + '%' );
+
+    @if $pseudo {
+        &:before {
+            @include pure-pseudo($pos: relative);
+            width: 100%;
+            padding-top: $padding;
+        }
+    }
+    @else {
+        padding-top: $padding;
+    }
+}
+/*-------------------------------------------------------------------------------------------*/
+/* @include pure-truncate(900px);  */
+/*-------------------------------------------------------------------------------------------*/
+@mixin pure-truncate($truncation-boundary) {
+    max-width: $truncation-boundary;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+/*-------------------------------------------------------------------------------------------*/
+/* @include pure-center-horizontal(60px);  */
+/*-------------------------------------------------------------------------------------------*/
+@mixin pure-center-horizontal($height) {
+    position: absolute;
+    top: 50%;
+    height: $height;
+    margin-top: -($height / 2);
+}
+/*-------------------------------------------------------------------------------------------*/
+/* @include pure-center-horizontal-any();  */
+/*-------------------------------------------------------------------------------------------*/
+@mixin pure-center-horizontal-any() {
+    position: absolute;
+    top: 50%;
+    @include pure-prefix(transform, translateY(-50%));
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/*-------------------------------------------------------------------------------------------*/
+/* BALLOON MIXIN */
+/*-------------------------------------------------------------------------------------------*/
+/*
+    @include balloon(top, #000);
+*/
+/*-------------------------------------------------------------------------------------------*/
+
+@mixin balloon($position, $bgColor: #efefef,$padding: 5px, $width: 15px, $height: 15px, $radius: 0px) {
+    position: relative;
+    display: inline-block;
+    vertical-align: top;
+    box-sizing: border-box;
+    padding: $padding;
+    background: $bgColor;
+    border-radius: $radius;
+
+    &:after {
+        content: "";
+        position: absolute;
+        border-style: solid;
+        border-color: transparent $bgColor;
+        display: block;
+        width: 0;
+        z-index: 1;
+
+        @if $position == TopLeft {
+            border-width: 10px 15px 10px 0;
+        }
+        @elseif $position == TopRight {
+            border-width: 10px 15px 10px 0;
+        }
+        @elseif $position == TopCenter {
+            border-width: 10px 15px 10px 0;
+        }
+        @elseif $position == LeftTop {
+            top: 5px;
+            left: -$width;
+            border-width: 10px 15px 10px 0;
+        }
+        @elseif $position == LeftBottom {
+            bottom: 5px;
+            left: -$width;
+            border-width: 10px 15px 10px 0;
+        }
+        @elseif $position == LeftCenter {
+            top: calc(50% - $height / 2);
+            left: -$width;
+            border-width: 10px 15px 10px 0;
+        }
+        @elseif $position == RightTop {
+            border-width: 10px 15px 10px 0;
+        }
+        @elseif $position == RightBottom {
+            border-width: 10px 15px 10px 0;
+        }
+        @elseif $position == RightCenter {
+            border-width: 10px 15px 10px 0;
+        }
+        @elseif $position == BottomLeft {
+            border-width: 10px 15px 10px 0;
+        }
+        @elseif $position == BottomRight {
+            border-width: 10px 15px 10px 0;
+        }
+        @elseif $position == BottomCenter {
+            border-width: 10px 15px 10px 0;
+        }
+        @else {
+            @warn "Bir pozisyon belirlemelisiniz.";
+            @warn $position;
+        }
+    }
+}
+
+/*-------------------------------------------------------------------------------------------*/
+/* ARROW MIXIN */
+/*-------------------------------------------------------------------------------------------*/
+/*
+    @include arrow(10px, 1px, 'bottom', '#00f', '#fff');
+*/
+/*-------------------------------------------------------------------------------------------*/
+@mixin arrow($width, $border-width, $direction, $color, $background-color, $position: relative) {
+    $map-direction: ( top: bottom left right, bottom: top left right, left: right top bottom, right: left top bottom );
+
+    @if not map-has-key($map-direction, $direction) {
+        @error "arrow $direction 必须为：#{map-keys($map-direction)}";
+    }
+
+    $conf: map-get($map-direction, $direction);
+
+    position: $position;
+
+    &:before,
+    &:after {
+        content: "";
+        position: absolute;
+    }
+
+    &:before {
+        top: 0;
+        left: 0;
+        border-#{nth($conf, 1)}: $width solid $color;
+        border-#{nth($conf, 2)}: $width solid transparent;
+        border-#{nth($conf, 3)}: $width solid transparent;
+    }
+
+    &:after {
+        border-#{nth($conf, 1)}: ($width - $border-width) solid $background-color;
+        border-#{nth($conf, 2)}: ($width - $border-width) solid transparent;
+        border-#{nth($conf, 3)}: ($width - $border-width) solid transparent;
+        top: if($direction==bottom, 0, $border-width);
+        left: if($direction==right, 0, $border-width);
+    }
+}
+
+
+/*-------------------------------------------------------------------------------------------*/
+/* TRIANGLE MIXIN */
+/*-------------------------------------------------------------------------------------------*/
+/*
+    @include triangle(25px, 25px, #f00, top|bottom|left|right);
+*/
+/*-------------------------------------------------------------------------------------------*/
+@mixin triangle($width, $height, $color: #000, $direction: bottom) {
+    $map-direction: ( top: bottom left right, bottom: top left right, left: right top bottom, right: left top bottom );
+
+    @if not map-has-key($map-direction, $direction) {
+        @error "triangle $direction 必须为：#{map-keys($map-direction)}";
+    }
+
+    $conf: map-get($map-direction, $direction);
+
+    @if $direction==top or $direction==bottom {
+        $width: $width/2;
+    }
+    @else {
+        $height: $height/2;
+    }
+
+    height: 0;
+    width: 0;
+    border-#{nth($conf, 1)}: $height solid $color;
+    border-#{nth($conf, 2)}: $width solid transparent;
+    border-#{nth($conf, 3)}: $width solid transparent;
+}
+
+
+/*-------------------------------------------------------------------------------------------*/
+/* SVG TRIANGLE MIXIN */
+/*-------------------------------------------------------------------------------------------*/
+/*
+    @include svg-triangle(10px, 5px);
+*/
+/*-------------------------------------------------------------------------------------------*/
+@mixin svg-triangle($width, $height, $color: #000, $direction: bottom) {
+    $map-direction: ( top: 0, bottom: 180 strip-unit($width) strip-unit($height), left: -90 strip-unit($height) strip-unit($height), right: 90 strip-unit($width) strip-unit($width) );
+
+    @if not map-has-key($map-direction, $direction) {
+        @error "svg-triangle $direction 必须为：#{map-keys($map-direction)}";
+    }
+
+    $degrees: map-get($map-direction, $direction);
+
+    width: $width;
+    height: $height;
+    background-image: url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http://www.w3.org/2000/svg%22%20width%3D%22#{$width * 2}%22%20height%3D%22#{$height * 2}%22%3E%3Cpath%20fill%3D%22#{$color}%22%20transform%3D%22rotate(#{$degrees})%22%20d%3D%22M2.658,0.000%20C-13.615,0.000%2050.938,0.000%2034.662,0.000%20C28.662,0.000%2023.035,12.002%2018.660,12.002%20C14.285,12.002%208.594,0.000%202.658,0.000%20Z%22/%3E%3C/svg%3E');
+    background-repeat: no-repeat;
+    background-size: 100% auto;
+}

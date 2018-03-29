@@ -1,0 +1,300 @@
+﻿//*----------------------------------------------------------------------------------------------*/
+/*  PURE SCSS LIBRARY                                                                           */
+/*----------------------------------------------------------------------------------------------*/
+/*                                                                                              */
+/*  Name    :   List                                                                            */
+/*  Version :   1.0.0                                                                           */
+/*  Git     :   https://github.com/TuruncuInternetSolutions/pure.git                            */
+/*                                                                                              */
+/*  by Turuncu Internet Solutions                                                               */
+/*  www.turuncuweb.net                                                                          */
+/*                                                                                              */
+/*----------------------------------------------------------------------------------------------*/
+
+$breakpoints: (
+    "phone":        400px,
+    "phone-wide":   480px,
+    "phablet":      560px,
+    "tablet-small": 640px,
+    "tablet":       768px,
+    "tablet-wide":  1024px,
+    "desktop":      1248px,
+    "desktop-wide": 1440px
+);
+
+@mixin mq($width, $type: min) {
+    @if map_has_key($breakpoints, $width) {
+        $width: map_get($breakpoints, $width);
+        @if $type == max {
+            $width: $width - 1px;
+        }
+        @media only screen and (#{$type}-width: $width) {
+            @content;
+        }
+    }
+}
+
+
+@mixin pure-mq($args...) {
+  $media-type: 'only screen';
+  $media-type-key: 'media-type';
+  $args: keywords($args);
+  $expr: '';
+
+  @if map-has-key($args, $media-type-key) {
+    $media-type: map-get($args, $media-type-key);
+    $args: map-remove($args, $media-type-key);
+  }
+
+  @each $key, $value in $args {
+    @if $value {
+      $expr: "#{$expr} and (#{$key}: #{$value})";
+    }
+  }
+
+  @media #{$media-type} #{$expr} {
+    @content;
+  }
+}
+/*----------------------------------------------------------------------------------------------*/
+/*  */
+/*----------------------------------------------------------------------------------------------*/
+@mixin pure-add-device($min, $max){
+  @include pure-mq($media-type: 'all', $min-width: $min, $max-width: $max) {
+    @content;
+  }
+}
+/*----------------------------------------------------------------------------------------------*/
+/*  */
+/*----------------------------------------------------------------------------------------------*/
+@mixin pure-mq-retina {
+    @media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min--moz-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2/1), only screen and (min-device-pixel-ratio: 2), only screen and (min-resolution: 192dpi), only screen and (min-resolution: 2dppx) {
+        @content;
+    }
+}
+/*----------------------------------------------------------------------------------------------*/
+/*  */
+/*----------------------------------------------------------------------------------------------*/
+@mixin pure-mq-hdtv($standard: '1080') {
+    $min-width: false;
+    $min-height: false;
+
+    $standards: ('720p', 1280px, 720px) 
+                ('1080', 1920px, 1080px) 
+                ('2K', 2048px, 1080px) 
+                ('4K', 4096px, 2160px);
+
+    @each $s in $standards {
+        @if $standard == nth($s, 1) {
+            $min-width: nth($s, 2);
+            $min-height: nth($s, 3);
+        }
+    }
+
+    @include pure-mq( $min-device-width: $min-width, $min-device-height: $min-height, $min-width: $min-width, $min-height: $min-height ) {
+        @content;
+    }
+}
+/*----------------------------------------------------------------------------------------------*/
+/*  */
+/*----------------------------------------------------------------------------------------------*/
+@mixin pure-mq-hdpi($ratio: 1.3) {
+    @media only screen and (-webkit-min-device-pixel-ratio: $ratio), only screen and (min-resolution: #{round($ratio*96)}dpi) {
+        @content;
+    }
+}
+/*----------------------------------------------------------------------------------------------*/
+/*  */
+/*----------------------------------------------------------------------------------------------*/
+@mixin pure-mq-print {
+    @media print {
+        @content;
+    }
+}
+/*----------------------------------------------------------------------------------------------*/
+/*  */
+/*----------------------------------------------------------------------------------------------*/
+@mixin pure-mq-landscape() {
+    @include pure-mq($orientation: landscape) {
+        @content;
+    }
+}
+/*----------------------------------------------------------------------------------------------*/
+/*  */
+/*----------------------------------------------------------------------------------------------*/
+@mixin pure-mq-portrait() {
+    @include pure-mq($orientation: portrait) {
+        @content;
+    }
+}
+/*----------------------------------------------------------------------------------------------*/
+/*  */
+/*----------------------------------------------------------------------------------------------*/
+@mixin pure-mq-screen($min, $max, $orientation: false) {
+    @include pure-mq($min-width: $min, $max-width: $max, $orientation: $orientation) {
+        @content;
+    }
+}
+/*----------------------------------------------------------------------------------------------*/
+/*  */
+/*----------------------------------------------------------------------------------------------*/
+@mixin pure-mq-max-screen($max) {
+    @include pure-mq($max-width: $max) {
+        @content;
+    }
+}
+/*----------------------------------------------------------------------------------------------*/
+/*  */
+/*----------------------------------------------------------------------------------------------*/
+@mixin pure-mq-min-screen($min) {
+    @include pure-mq($min-width: $min) {
+        @content;
+    }
+}
+/*----------------------------------------------------------------------------------------------*/
+/*  */
+/*----------------------------------------------------------------------------------------------*/
+@mixin pure-mq-screen-height($min, $max, $orientation: false) {
+    @include pure-mq($min-height: $min, $max-height: $max, $orientation: $orientation) {
+        @content;
+    }
+}
+/*----------------------------------------------------------------------------------------------*/
+/*  */
+/*----------------------------------------------------------------------------------------------*/
+@mixin pure-mq-max-screen-height($max) {
+    @include pure-mq($max-height: $max) {
+        @content;
+    }
+}
+/*----------------------------------------------------------------------------------------------*/
+/*  */
+/*----------------------------------------------------------------------------------------------*/
+@mixin pure-mq-min-screen-height($min) {
+    @include pure-mq($min-height: $min) {
+        @content;
+    }
+}
+
+/*----------------------------------------------------------------------------------------------*/
+/* BOOTSTRAP */
+/*----------------------------------------------------------------------------------------------*/
+/* 
+    @include pure-bootstrap-mq(xs){
+        ...
+    } 
+*/
+/*----------------------------------------------------------------------------------------------*/
+$pure-bootstrap-mq-xs-max: 767px;
+$pure-bootstrap-mq-md-min: 992px;
+$pure-bootstrap-mq-md-max: 1200px;
+
+@mixin pure-bootstrap-mq($class) {
+    @if $class == xs {
+        @include pure-add-device(0, $pure-bootstrap-mq-xs-max){
+            @content;
+        }
+    }
+
+    @else if $class == sm {
+        @include pure-add-device($pure-bootstrap-mq-xs-max + 1, $pure-bootstrap-mq-md-min - 1){
+            @content;
+        }
+    }
+
+    @else if $class == md {
+        @include pure-add-device($pure-bootstrap-mq-md-min, $pure-bootstrap-mq-md-max){
+            @content;
+        }
+    }
+
+    @else if $class == lg {
+        @include pure-add-device($pure-bootstrap-mq-md-max + 1, 10000px){
+            @content;
+        }
+    }
+    @else {
+        @warn "Breakpoint mixin supports: xs, sm, md, lg";
+    }
+}
+
+/*----------------------------------------------------------------------------------------------*/
+/* IPHONE */
+/*----------------------------------------------------------------------------------------------*/
+@mixin pure-mq-iphone4($orientation: false) {
+    $min: 320px;
+    $max: 480px;
+    $pixel-ratio: 2;
+    $aspect-ratio: '2/3';
+
+    @include pure-mq( $min-device-width: $min, $max-device-width: $max, $orientation: $orientation, $device-aspect-ratio: $aspect-ratio, $-webkit-device-pixel-ratio: $pixel-ratio ) {
+        @content;
+    }
+}
+
+@mixin pure-mq-iphone5($orientation: false) {
+    $min: 320px;
+    $max: 568px;
+    $pixel-ratio: 2;
+    $aspect-ratio: '40/71';
+
+    @include pure-mq( $min-device-width: $min, $max-device-width: $max, $orientation: $orientation, $device-aspect-ratio: $aspect-ratio, $-webkit-device-pixel-ratio: $pixel-ratio ) {
+        @content;
+    }
+}
+
+@mixin pure-mq-iphone6($orientation: false) {
+    $min: 375px;
+    $max: 667px;
+    $pixel-ratio: 2;
+
+    @include pure-mq( $min-device-width: $min, $max-device-width: $max, $orientation: $orientation, $-webkit-device-pixel-ratio: $pixel-ratio ) {
+        @content;
+    }
+}
+
+@mixin pure-mq-iphone6-plus($orientation: false) {
+    $min: 414px;
+    $max: 736px;
+    $pixel-ratio: 3;
+
+    @include pure-mq( $min-device-width: $min, $max-device-width: $max, $orientation: $orientation, $-webkit-device-pixel-ratio: $pixel-ratio ) {
+        @content;
+    }
+}
+/*----------------------------------------------------------------------------------------------*/
+/* IPAD */
+/*----------------------------------------------------------------------------------------------*/
+@mixin pure-mq-ipad($orientation: false) {
+    $min: 768px;
+    $max: 1024px;
+
+    @include pure-mq( $min-device-width: $min, $max-device-width: $max, $orientation: $orientation ) {
+        @content;
+    }
+}
+
+@mixin pure-mq-ipad-retina($orientation: false) {
+    $min: 768px;
+    $max: 1024px;
+    $pixel-ratio: 2;
+
+    @include pure-mq( $min-device-width: $min, $max-device-width: $max, $orientation: $orientation, $-webkit-device-pixel-ratio: $pixel-ratio ) {
+        @content;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

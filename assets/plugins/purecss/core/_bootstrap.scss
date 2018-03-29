@@ -1,0 +1,81 @@
+﻿/*----------------------------------------------------------------------------------------------*/
+/*  PURE SCSS LIBRARY                                                                           */
+/*----------------------------------------------------------------------------------------------*/
+/*                                                                                              */
+/*  Name    :   Bootstrap                                                                       */
+/*  Version :   1.0.0                                                                           */
+/*  Git     :   https://github.com/TuruncuInternetSolutions/pure.git                            */
+/*                                                                                              */
+/*  by Turuncu Internet Solutions                                                               */
+/*  www.turuncuweb.net                                                                          */
+/*                                                                                              */
+/*----------------------------------------------------------------------------------------------*/
+/* BUTTON VARIANT */
+/*----------------------------------------------------------------------------------------------*/
+@mixin pure-bootstrap-button-variant($color,$background,$border-radius,$background-hover) {
+    color: $color;
+    background-color: $background;
+    cursor: pointer;
+    border-color: transparent;
+    transition: all .5s ease-in-out;
+    border-radius: $border-radius;
+
+    &:hover,
+    &:focus,
+    &:active {
+        color: $color;
+        background-color: darken($background-hover, 3%);
+    }
+
+    &[disabled] {
+        &,
+        &:hover,
+        &:focus,
+        &:active {
+            background-color: $background;
+            color: $color;
+        }
+    }
+}
+/*----------------------------------------------------------------------------------------------*/
+/* MEDIA QUERIES WIDTHS */
+/*----------------------------------------------------------------------------------------------*/
+$xs-max-width: 575px;
+$sm-min-width: 576px;
+$sm-max-width: 767px;
+$md-min-width: 768px;
+$md-max-width: 991px;
+$lg-min-width: 992px;
+$lg-max-width: 1199px;
+$xl-min-width: 1200px;
+
+@mixin pure-bootstrap-respond-to($class) {
+    @if $class == xs {
+        @media (max-width: $xs-max-width) {
+            @content;
+        }
+    }
+    @elseif $class == sm {
+        @media only screen and (min-width: $sm-min-width) and (max-width: $sm-max-width) {
+            @content;
+        }
+    }
+    @elseif $class == md {
+        @media only screen and (min-width: $md-min-width) and (max-width: $md-max-width) {
+            @content;
+        }
+    }
+    @elseif $class == lg {
+        @media only screen and (min-width: $lg-min-width) and (max-width: $lg-max-width) {
+            @content;
+        }
+    }
+    @elseif $class == xl {
+        @media (min-width: $xl-min-width) {
+            @content;
+        }
+    } 
+    @else {
+        @warn "Breakpoint mixin supports: xs, sm, md, lg, xl";
+    }
+}

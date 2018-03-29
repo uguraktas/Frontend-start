@@ -1,0 +1,161 @@
+﻿/*----------------------------------------------------------------------------------------------*/
+/*  PURE SCSS LIBRARY                                                                           */
+/*----------------------------------------------------------------------------------------------*/
+/*                                                                                              */
+/*  Name    :   Background                                                                      */
+/*  Version :   1.0.0                                                                           */
+/*  Git     :   https://github.com/TuruncuInternetSolutions/pure.git                            */
+/*                                                                                              */
+/*  by Turuncu Internet Solutions                                                               */
+/*  www.turuncuweb.net                                                                          */
+/*                                                                                              */
+/*----------------------------------------------------------------------------------------------*/
+
+/*----------------------------------------------------------------------------------------------*/
+/*  @include pure-background-gradient-lineer(#FFF, #000); */
+/*----------------------------------------------------------------------------------------------*/
+@mixin pure-background-gradient-vertical($startColor: #3C3C3C, $endColor: #999999) {
+    background-color: $startColor;
+    background-image: -webkit-gradient(linear, left top, left bottom, from($startColor), to($endColor));
+    background-image: -webkit-linear-gradient(top, $startColor, $endColor);
+    background-image: -moz-linear-gradient(top, $startColor, $endColor);
+    background-image: -ms-linear-gradient(top, $startColor, $endColor);
+    background-image: -o-linear-gradient(top, $startColor, $endColor);
+    background-image: linear-gradient(top, $startColor, $endColor);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#{$startColor}', endColorStr='#{$endColor}');
+}
+/*----------------------------------------------------------------------------------------------*/
+/*  @include pure-background-gradient-horizontal(#FFF, #000); */
+/*----------------------------------------------------------------------------------------------*/
+@mixin pure-background-gradient-horizontal($startColor: #3C3C3C, $endColor: #999999) {
+    background-color: $startColor;
+    background-image: -webkit-gradient(linear, left top, right top, from($startColor), to($endColor));
+    background-image: -webkit-linear-gradient(left, $startColor, $endColor);
+    background-image: -moz-linear-gradient(left, $startColor, $endColor);
+    background-image: -ms-linear-gradient(left, $startColor, $endColor);
+    background-image: -o-linear-gradient(left, $startColor, $endColor);
+    background-image: linear-gradient(left, $startColor, $endColor);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#{$startColor}', endColorStr='#{$endColor}', gradientType='1');
+}
+/*----------------------------------------------------------------------------------------------*/
+/*  @include pure-background-gradient-directional(#FFF, #000, 45deg); */
+/*----------------------------------------------------------------------------------------------*/
+@mixin pure-background-gradient-directional($start-color: #555, $end-color: #333, $deg: 45deg) {
+    background-repeat: repeat-x;
+    background-image: -webkit-linear-gradient($deg, $start-color, $end-color); // Safari 5.1-6, Chrome 10+
+    background-image: -o-linear-gradient($deg, $start-color, $end-color); // Opera 12
+    background-image: linear-gradient($deg, $start-color, $end-color); // Standard, IE10, Firefox 16+, Opera 12.10+, Safari 7+, Chrome 26+
+}
+/*----------------------------------------------------------------------------------------------*/
+/*  @include pure-background-gradient-vertical-three-colors(#00b3ee, #7a43b6, 50%, #c3325f); */
+/*----------------------------------------------------------------------------------------------*/
+@mixin pure-background-gradient-vertical-three-colors($start-color: #00b3ee, $mid-color: #7a43b6, $color-stop: 50%, $end-color: #c3325f) {
+    background-image: -webkit-linear-gradient($start-color, $mid-color $color-stop, $end-color);
+    background-image: -o-linear-gradient($start-color, $mid-color $color-stop, $end-color);
+    background-image: linear-gradient($start-color, $mid-color $color-stop, $end-color);
+    background-repeat: no-repeat;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#{ie-hex-str($start-color)}', endColorstr='#{ie-hex-str($end-color)}', GradientType=0); // IE9 and down, gets no color-stop at all for proper fallback
+}
+/*----------------------------------------------------------------------------------------------*/
+/*  @include pure-background-gradient-horizontal-three-colors(#00b3ee, #7a43b6, 50%, #c3325f); */
+/*----------------------------------------------------------------------------------------------*/
+@mixin pure-background-gradient-horizontal-three-colors($start-color: #00b3ee, $mid-color: #7a43b6, $color-stop: 50%, $end-color: #c3325f) {
+    background-image: -webkit-linear-gradient(left, $start-color, $mid-color $color-stop, $end-color);
+    background-image: -o-linear-gradient(left, $start-color, $mid-color $color-stop, $end-color);
+    background-image: linear-gradient(to right, $start-color, $mid-color $color-stop, $end-color);
+    background-repeat: no-repeat;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#{ie-hex-str($start-color)}', endColorstr='#{ie-hex-str($end-color)}', GradientType=1); // IE9 and down, gets no color-stop at all for proper fallback
+}
+/*----------------------------------------------------------------------------------------------*/
+/*  @include pure-background-gradient-radial(#FFF, %0, #000, %100); */
+/*----------------------------------------------------------------------------------------------*/
+@mixin pure-background-gradient-radial($startColor: #FFFFFF, $startPos: 0%, $endColor: #000000, $endPos: 100%) {
+    background: -moz-radial-gradient(center, ellipse cover, $startColor $startPos, $endColor $endPos);
+    background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop($startPos,$startColor), color-stop($endPos,$endColor));
+    background: -webkit-radial-gradient(center, ellipse cover, $startColor $startPos,$endColor $endPos);
+    background: -o-radial-gradient(center, ellipse cover, $startColor $startPos,$endColor $endPos);
+    background: -ms-radial-gradient(center, ellipse cover, $startColor $startPos,$endColor $endPos);
+    background: radial-gradient(ellipse at center, $startColor $startPos,$endColor $endPos);
+}
+/*----------------------------------------------------------------------------------------------*/
+/*  @include pure-background-gradient-striped(#fff, 45deg); */
+/*----------------------------------------------------------------------------------------------*/
+@mixin pure-background-gradient-striped($color: rgba(255,255,255,.15), $angle: 45deg) {
+    background-image: -webkit-linear-gradient($angle, $color 25%, transparent 25%, transparent 50%, $color 50%, $color 75%, transparent 75%, transparent);
+    background-image: -o-linear-gradient($angle, $color 25%, transparent 25%, transparent 50%, $color 50%, $color 75%, transparent 75%, transparent);
+    background-image: linear-gradient($angle, $color 25%, transparent 25%, transparent 50%, $color 50%, $color 75%, transparent 75%, transparent);
+}
+/*----------------------------------------------------------------------------------------------*/
+/*  @include pure-background-image-cover(); */
+/*----------------------------------------------------------------------------------------------*/
+@mixin pure-background-image-cover() {
+    background-size: cover;
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+}
+/*----------------------------------------------------------------------------------------------*/
+/*  @include pure-background-image-fixed(); */
+/*----------------------------------------------------------------------------------------------*/
+@mixin pure-background-image-fixed() {
+    background-attachment: fixed;
+}
+/*----------------------------------------------------------------------------------------------*/
+/*  @include pure-background-image-2x('bg.jpg', 'bg@2x.jpg', 50%, 50%); */
+/*----------------------------------------------------------------------------------------------*/
+@mixin pure-background-image-2x($file, $file2, $width, $height) {
+    background-image: url($file);
+
+    @media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (-moz-min-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2/1), only screen and (min-device-pixel-ratio: 2), only screen and (min-resolution: 192dpi), only screen and (min-resolution: 2dppx) {
+        & {
+            background-image: url($file2x);
+            -webkit-background-size: $width $height;
+            -moz-background-size: $width $height;
+            -o-background-size: $width $height;
+            background-size: $width $height;
+        }
+    }
+}
+/*----------------------------------------------------------------------------------------------*/
+/*  @include pure-animated-background-image('bg.jpg', linear, 40s); */
+/*----------------------------------------------------------------------------------------------*/
+@mixin pure-animated-background-image($color, $image, $anim: linear, $duration: 40s) {
+    background: $color url($image) repeat 0 0;
+    -webkit-animation: $duration linear 0s normal none infinite pure-bg-loop;
+    -moz-animation: $duration linear 0s normal none infinite pure-bg-loop;
+    -ms-animation: $duration linear 0s normal none infinite pure-bg-loop;
+    -o-animation: $duration linear 0s normal none infinite pure-bg-loop;
+    animation: $duration linear 0s normal none infinite pure-bg-loop;
+
+    @include pure-keyframes(pure-bg-loop) {
+        from {
+            background-position: 0 0;
+        }
+
+        to {
+            background-position: 500px 0;
+        }
+    }
+}
+
+/*----------------------------------------------------------------------------------------------*/
+/*  @include pure-background-image-gradient-overlay('image.jpg', rgba(blue, 0.25), rgba(blue, 0.5), rgba(red, 0.75), to top right) */
+/*----------------------------------------------------------------------------------------------*/
+@mixin pure-background-image-gradient-overlay($image_url: null, $solid_background: null, $gradient_start: null, $gradient_end: null, $gradient_direction: null) {
+    $g: linear-gradient(if($gradient_direction == null, null, $gradient_direction + unquote(',')) if($gradient_start == null, transparent, $gradient_start), if($gradient_end == null, transparent, $gradient_end));
+    $s: linear-gradient($solid_background 100%, transparent);
+    $i: url($image_url);
+
+    @if $gradient_start == null and $gradient_end == null {
+        $g: null
+    }
+
+    @if $solid_background == null {
+        $s: null
+    }
+
+    @if $image_url == null {
+        $i: null
+    }
+    @include pure-background-image-cover();
+    background-image: $g, $s, $i;
+}

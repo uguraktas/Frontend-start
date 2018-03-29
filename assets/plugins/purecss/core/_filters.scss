@@ -1,0 +1,67 @@
+﻿/*----------------------------------------------------------------------------------------------*/
+/*  PURE SCSS LIBRARY                                                                           */
+/*----------------------------------------------------------------------------------------------*/
+/*                                                                                              */
+/*  Name    :   Filters                                                                         */
+/*  Version :   1.0.0                                                                           */
+/*  Git     :   https://github.com/TuruncuInternetSolutions/pure.git                            */
+/*                                                                                              */
+/*  by Turuncu Internet Solutions                                                               */
+/*  www.turuncuweb.net                                                                          */
+/*                                                                                              */
+/*----------------------------------------------------------------------------------------------*/
+
+@mixin pure-filter-blur($value) {
+    -webkit-filter: blur($value); // Add value in px
+    filter: blur($value);
+}
+
+@mixin pure-filter-grayscale($value) {
+    -webkit-filter: grayscale($value); // Add value in %
+    filter: grayscale($value);
+}
+
+@mixin pure-filter-sepia($value) {
+    -webkit-filter: sepia($value); // Add value in %
+    filter: sepia($value);
+}
+
+@mixin pure-filter-saturate($value) {
+    -webkit-filter: saturate($value); //Add value in % or whole number
+    filter: saturate($value);
+}
+
+@mixin pure-filter-hue-rotate($value) {
+    -webkit-filter: hue-rotate($value); //Add value in deg
+    filter: hue-rotate($value);
+}
+
+@mixin pure-filter-invert($value) {
+    -webkit-filter: invert($value); //Add value in %
+    filter: invert($value);
+}
+
+@mixin pure-filter-opacity($value) {
+    -webkit-filter: opacity($value); //Add value in %
+    filter: opacity($value);
+}
+
+@mixin pure-filter-brightness($value) {
+    -webkit-filter: brightness($value); //Add value in %
+    filter: brightness($value);
+}
+
+@mixin pure-filter-contrast($value) {
+    -webkit-filter: contrast($value); //Add value in %
+    filter: contrast($value);
+}
+
+@mixin pure-filter-drop-shadow($value) {
+    -webkit-filter: drop-shadow($value);
+    filter: drop-shadow($value);
+}
+
+@mixin pure-filter-url($value) {
+    -webkit-filter: url($value);
+    filter: url($value);
+}

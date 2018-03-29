@@ -1,0 +1,62 @@
+﻿/*----------------------------------------------------------------------------------------------*/
+/*  PURE SCSS LIBRARY                                                                           */
+/*----------------------------------------------------------------------------------------------*/
+/*                                                                                              */
+/*  Name    :   Events                                                                          */
+/*  Version :   1.0.0                                                                           */
+/*  Git     :   https://github.com/TuruncuInternetSolutions/pure.git                            */
+/*                                                                                              */
+/*  by Turuncu Internet Solutions                                                               */
+/*  www.turuncuweb.net                                                                          */
+/*                                                                                              */
+/*----------------------------------------------------------------------------------------------*/
+/* LINK EVENTS STACKS */
+/*-------------------------------------------------------------------------------------------*/
+$pure-link-tags: 'a, a:active, a:hover, a:visited';
+$pure-link-tags-hover: 'a:active, a:hover, a:visited:hover';
+/*
+    #{$pure-link-tags} {
+      color: red;
+      text-decoration: none;
+    }
+    #{$pure-link-tags-hover} {
+      color: blue;
+    }
+    .selectorClass {
+      #{$pure-link-tags} {
+        color: blue;
+        text-decoration: none;
+      } 
+    }
+*/
+/*-------------------------------------------------------------------------------------------*/
+/*
+    @include pure-event-link-normal(){
+        ...
+    }
+*/
+/*-------------------------------------------------------------------------------------------*/
+@mixin pure-event-link-normal() {
+    #{$pure-link-tags} {
+        @content;
+    }
+}
+/*-------------------------------------------------------------------------------------------*/
+/*
+    @include pure-event-link-hover(){
+        ...
+    }
+*/
+/*-------------------------------------------------------------------------------------------*/
+@mixin pure-event-link-hover() {
+    #{$pure-link-tags-hover} {
+        @content;
+    }
+}
+/*-------------------------------------------------------------------------------------------*/
+/* @include pure-event-touch-scroll(); */
+/*-------------------------------------------------------------------------------------------*/
+@mixin pure-event-touch-scroll {
+    -webkit-overflow-scrolling: touch;
+    overflow-scrolling: touch;
+}

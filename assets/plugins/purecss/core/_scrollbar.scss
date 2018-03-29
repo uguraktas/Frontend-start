@@ -1,0 +1,54 @@
+﻿/*----------------------------------------------------------------------------------------------*/
+/*  PURE SCSS LIBRARY                                                                           */
+/*----------------------------------------------------------------------------------------------*/
+/*                                                                                              */
+/*  Name    :   Scrollbar                                                                      */
+/*  Version :   1.0.0                                                                           */
+/*  Git     :   https://github.com/TuruncuInternetSolutions/pure.git                            */
+/*                                                                                              */
+/*  by Turuncu Internet Solutions                                                               */
+/*  www.turuncuweb.net                                                                          */
+/*                                                                                              */
+/*----------------------------------------------------------------------------------------------*/
+/// Mixin to customize scrollbars
+/// Beware, this does not work in all browsers
+/// @author Hugo Giraudel
+/// @param {Length} $size - Horizontal scrollbar's height and vertical scrollbar's width
+/// @param {Color} $foreground-color - Scrollbar's color
+/// @param {Color} $background-color [mix($foreground-color, white, 50%)] - Scrollbar's color
+/// @example scss - Scrollbar styling
+/// @include scrollbars(.5em, slategray,5px);
+/*----------------------------------------------------------------------------------------------*/
+$border: 0px;
+@mixin pure-scrollbar($size, $foreground-color, $radius: null, $background-color: mix($foreground-color, white, 50%)) {
+    // For Google Chrome
+    &::-webkit-scrollbar {
+        width: $size;
+        height: $size;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: $foreground-color;
+        @if ($radius) {
+         border-radius: $radius;
+     } @else {
+         $radius: $border;
+         border-radius: $radius;
+     }
+    }
+
+    &::-webkit-scrollbar-track {
+        background: $background-color;
+        @if ($radius) {
+         border-radius: $radius;
+     } @else {
+         $radius: $border;
+         border-radius: $radius;
+     }
+    }
+    // For Internet Explorer
+    body {
+        scrollbar-face-color: $foreground-color;
+        scrollbar-track-color: $background-color;
+    }
+}

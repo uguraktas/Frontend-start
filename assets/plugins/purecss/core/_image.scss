@@ -1,0 +1,104 @@
+﻿/*----------------------------------------------------------------------------------------------*/
+/*  PURE SCSS LIBRARY                                                                           */
+/*----------------------------------------------------------------------------------------------*/
+/*                                                                                              */
+/*  Name    :   Image                                                                           */
+/*  Version :   1.0.0                                                                           */
+/*  Git     :   https://github.com/TuruncuInternetSolutions/pure.git                            */
+/*                                                                                              */
+/*  by Turuncu Internet Solutions                                                               */
+/*  www.turuncuweb.net                                                                          */
+/*                                                                                              */
+/*----------------------------------------------------------------------------------------------*/
+
+
+/*----------------------------------------------------------------------------------------------*/
+/*  @include pure-image-2x('logo.png', 'logo@2x.png', 140px, 40px);    */
+/*----------------------------------------------------------------------------------------------*/
+@mixin pure-image-2x($file, $file2x, $width, $height) {
+    background-image: url($file);
+
+    @media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (-moz-min-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2/1), only screen and (min-device-pixel-ratio: 2), only screen and (min-resolution: 192dpi), only screen and (min-resolution: 2dppx) {
+        & {
+            background-image: url($file2x);
+            -webkit-background-size: $width $height;
+            -moz-background-size: $width $height;
+            -o-background-size: $width $height;
+            background-size: $width $height;
+        }
+    }
+}
+/*----------------------------------------------------------------------------------------------*/
+/*  @include pure-image-overlay(rgba(0,0,0,0.7), bottom);    */
+/*----------------------------------------------------------------------------------------------*/
+@mixin pure-image-overlay($overlay-color: rgba(0,0,0,0.7), $duration: 0.4s, $slideTo: bottom) {
+    position: relative;
+    margin: auto;
+    overflow: hidden;
+
+    .overlay {
+        background: $overlay-color;
+        opacity: 0;
+        z-index: 2;
+        will-change: transform;
+
+        @include pure-size(100%, 100%);
+        @include pure-position(absolute, 0, 0, 0, 0);
+        @include pure-transition-all(all $duration ease-in-out);
+    }
+
+    .image {
+        z-index: 1;
+        will-change: transform;
+
+        @include pure-size(100%, 100%);
+        @include pure-transition-all(all ($duration*3) ease-in-out);
+
+    }
+
+    .details {
+        position: absolute;
+        text-align: center;
+        width: 100%;
+        opacity: 0;
+        z-index: 3;
+        will-change: transform;
+
+        @include pure-transform(translate(-50%, -50%));
+        @include pure-transition-all(all $duration*2 ease-in-out);
+        
+
+        @if $slideTo == top {
+            top: 20%;
+            left: 50%;
+        }
+        @elseif $slideTo == left {
+            top: 50%;
+            left: 20%;
+        }
+        @elseif $slideTo == right {
+            top: 50%;
+            left: 80%;
+        }
+        @else {
+            top: 80%;
+            left: 50%;
+        }
+    }
+
+    &:hover {
+        .overlay {
+            opacity: 1;
+        }
+
+        .details {
+            top: 50%;
+            left: 50%;
+            opacity: 1;
+        }
+
+        .image {
+            @include pure-transform(scale(1.2) translateZ(0));
+        }
+    }
+}

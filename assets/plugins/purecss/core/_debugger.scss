@@ -1,0 +1,94 @@
+﻿/*----------------------------------------------------------------------------------------------*/
+/*  PURE SCSS LIBRARY                                                                           */
+/*----------------------------------------------------------------------------------------------*/
+/*                                                                                              */
+/*  Name    :   Debugger                                                                        */
+/*  Version :   1.0.0                                                                           */
+/*  Git     :   https://github.com/TuruncuInternetSolutions/pure.git                            */
+/*                                                                                              */
+/*  by Turuncu Internet Solutions                                                               */
+/*  www.turuncuweb.net                                                                          */
+/*                                                                                              */
+/*  Thanks to                                                                                   */
+/*  https://github.com/jotavejv/css-sass-debugger                                               */
+/*----------------------------------------------------------------------------------------------*/
+/* @include pure-debugger(); */
+/*----------------------------------------------------------------------------------------------*/
+@mixin pure-debugger($pure-debugger-outline: true, $pure-debugger-color: #ff0000, $pure-debugger-tags: (h1, h2, h3, h4, h5, div, p, span, a, img),$pure-debugger-attrs: (style), $pure-debugger-classes: (debug)) {
+
+    @each $tag in $pure-debugger-tags {
+        #{$tag} {
+            @if $pure-debugger-outline == true {
+                outline: dotted 1px lightgray;
+            }
+            @else {
+                outline: none;
+            }
+
+            &:after {
+                content: ' ' + '[' + quote(#{$tag}) + ']';
+                font-size: 10px;
+                color: $pure-debugger-color;
+                font-weight: bold;
+                position: relative;
+                top: -5px;
+                right: 0;
+            }
+        }
+    }
+
+    @each $attr in $pure-debugger-attrs {
+        *[#{$attr}] {
+            @if $pure-debugger-outline == true {
+                outline: dotted 1px lightgray;
+            }
+            @else {
+                outline: none;
+            }
+
+            &:after {
+                content: ' ' + '[' + quote(#{$attr}) + ']';
+                font-size: 10px;
+                color: $pure-debugger-color;
+                font-weight: bold;
+                position: relative;
+                top: -5px;
+                right: 0;
+            }
+        }
+    }
+
+    @each $class in $pure-debugger-classes {
+        .#{$class} {
+            @if $pure-debugger-outline == true {
+                outline: dotted 1px lightgray;
+            }
+            @else {
+                outline: none;
+            }
+
+            &:after {
+                content: ' ' + '[' + quote(#{$class}) + ']';
+                font-size: 10px;
+                color: $pure-debugger-color;
+                font-weight: bold;
+                position: relative;
+                top: -5px;
+                right: 0;
+            }
+        }
+    }
+
+    $content: 'DEBUG >> ' '$pure-debugger-tags: #{$pure-debugger-tags}' ' | ' '$pure-debugger-attrs: #{$pure-debugger-attrs}' ' | ' '$pure-debugger-classes: #{$pure-debugger-classes}';
+
+    &:before {
+        content: $content;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        z-index: 99999;
+        font-size: 10px;
+        color: $pure-debugger-color;
+        text-transform: uppercase;
+    }
+}

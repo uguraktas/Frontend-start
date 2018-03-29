@@ -1,0 +1,216 @@
+﻿/*----------------------------------------------------------------------------------------------*/
+/*  PURE SCSS LIBRARY                                                                           */
+/*----------------------------------------------------------------------------------------------*/
+/*                                                                                              */
+/*  Name    :   Generic Functions                                                               */
+/*  Version :   1.0.0                                                                           */
+/*  Git     :   https://github.com/TuruncuInternetSolutions/pure.git                            */
+/*                                                                                              */
+/*  by Turuncu Internet Solutions                                                               */
+/*  www.turuncuweb.net                                                                          */
+/*                                                                                              */
+/*----------------------------------------------------------------------------------------------*/
+/* STRING FUNCTIONS */
+/*----------------------------------------------------------------------------------------------*/
+
+/*----------------------------------------------------------------------------------------------*/
+/* pure-string-replace($string, "@", " ") */
+/*----------------------------------------------------------------------------------------------*/
+@function pure-string-replace($string, $search, $replace: "") {
+    $index: str-index($string, $search);
+
+    @if $index {
+        @return str-slice($string, 1, $index - 1) + $replace + pure-string-replace(str-slice($string, $index + str-length($search)), $search, $replace);
+    }
+
+    @return $string;
+}
+/*----------------------------------------------------------------------------------------------*/
+/* pure-string-split($string, " ") */
+/*----------------------------------------------------------------------------------------------*/
+@function pure-string-split($string, $delimiter: " ") {
+    $result: ();
+    $length: str-length($string);
+
+    @if str-length($delimiter)==0 {
+        @for $i from 1 through $length {
+            $result: append($result, str-slice($string, $i, $i));
+        }
+
+        @return $result;
+    }
+
+    $running: true;
+    $remaining: $string;
+
+    @while $running {
+        $index: str-index($remaining, $delimiter);
+
+        @if $index {
+            $slice: str-slice($remaining, 1, $index - 1);
+            $result: append($result, $slice);
+            $remaining: str-slice($remaining, $index+ str-length($delimiter));
+        }
+        @else {
+            $running: false;
+        }
+    }
+
+    @return append($result, $remaining);
+}
+/*----------------------------------------------------------------------------------------------*/
+/* pure-string-repeat($string, 5) */
+/*----------------------------------------------------------------------------------------------*/
+@function pure-string-repeat($string, $times) {
+    $result: "";
+
+    @for $i from 1 through $times {
+        $result: $result+ $string;
+    }
+
+    @return $result;
+}
+/*----------------------------------------------------------------------------------------------*/
+/* pure-string-join($string, ",") */
+/*----------------------------------------------------------------------------------------------*/
+@function pure-string-join($list, $separator: ",") {
+    $string: "";
+
+    @for $i from 1 through length($list) {
+        $string: _str-append($string, #{nth($list, $i)});
+
+        @if $i != length($list) {
+            $string: _str-append($string, $separator);
+        }
+    }
+
+    @return $string;
+}
+/*----------------------------------------------------------------------------------------------*/
+/* pure-string-count($string, 5) */
+/*----------------------------------------------------------------------------------------------*/
+@function pure-string-count($string, $substring) {
+    $counter: 0;
+
+    @for $i from 1 through str-length($string) {
+
+        $index: str-index($string, $substring);
+
+        @if $index and $index > 0 {
+            $counter: $counter + 1;
+            $string: str-slice($string, $index + 1, str-length($string));
+        }
+    }
+
+    @return $counter;
+}
+/*----------------------------------------------------------------------------------------------*/
+/* pure-string-contains($string, "a", 0) */
+/*----------------------------------------------------------------------------------------------*/
+@function pure-string-contains($string, $substr, $pos: 0) {
+
+    $string: str-slice($string, $pos);
+
+    @if str-index($string, $substr) != null {
+        @return true;
+    }
+    @else {
+        @return false;
+    }
+}
+/*----------------------------------------------------------------------------------------------*/
+/* pure-string-append($string, "-test") */
+/*----------------------------------------------------------------------------------------------*/
+@function pure-string-append($string, $insert) {
+    $string: if($string == null, "", $string);
+
+    @return str-insert($string, $insert, str-length($string) + 1);
+}
+/*----------------------------------------------------------------------------------------------*/
+/* pure-string-prepend($string, "test-") */
+/*----------------------------------------------------------------------------------------------*/
+@function pure-string-prepend($string, $insert) {
+    $string: if($string == null, "", $string);
+
+    @return str-insert($string, $insert, 1);
+}
+
+/*----------------------------------------------------------------------------------------------*/
+/* MATH FUNCTIONS */
+/*----------------------------------------------------------------------------------------------*/
+$pure-math-const-pi: 3.1415926535897932384626433832795028841971693993751;
+$pure-math-const-iter: 50;
+
+/*----------------------------------------------------------------------------------------------*/
+/*  math-maclaurin($start, $key, $number) */
+/*----------------------------------------------------------------------------------------------*/
+@function pure-math-maclaurin($start, $key, $number) {
+    $value: $start;
+    $add: 0;
+
+    @for $i from 1 through $pure-math-const-iter {
+        @if $add == 0 {
+            $value: $value - ( _exponent($number, $key) / -factorial($key) );
+            $add: 1;
+        }
+        @else {
+            $value: $value + ( _exponent($number, $key) / -factorial($key) );
+            $add: 0;
+        }
+
+        $key: $key + 2;
+    }
+
+    @return $value;
+}
+/*----------------------------------------------------------------------------------------------*/
+/*  pure-math-deg-to-rad($number) */
+/*----------------------------------------------------------------------------------------------*/
+@function pure-math-deg-to-rad($number) {
+    @return $number * $pure-math-const-pi / 180deg;
+}
+/*----------------------------------------------------------------------------------------------*/
+/*  pure-math-rad-to-deg($number) */
+/*----------------------------------------------------------------------------------------------*/
+@function pure-math-rad-to-deg($number) {
+    @return $number * 180deg / $pure-math-const-pi;
+}
+/*----------------------------------------------------------------------------------------------*/
+/*  pure-math-sin($number, $unit: "deg") */
+/*----------------------------------------------------------------------------------------------*/
+@function pure-math-sin($number, $unit: "deg") {
+    @if $unit == "deg" {
+        $number: _deg-to-rad($number);
+    }
+
+    @return math-maclaurin($number, 3, $number);
+}
+/*----------------------------------------------------------------------------------------------*/
+/*  pure-math-cos($number, $unit: "deg") */
+/*----------------------------------------------------------------------------------------------*/
+@function pure-math-cos($number, $unit: "deg") {
+    @if $unit == "deg" {
+        $number: _deg-to-rad($number);
+    }
+
+    @return math-maclaurin(1, 2, $number);
+}
+/*----------------------------------------------------------------------------------------------*/
+/*  pure-math-lerp($x, $a, $b) */
+/*----------------------------------------------------------------------------------------------*/
+@function pure-math-lerp($x, $a, $b) {
+    @return $a + $x * ($b - $a);
+}
+/*----------------------------------------------------------------------------------------------*/
+/* pure-math-calculate-rem($size)  */
+/*----------------------------------------------------------------------------------------------*/
+@function pure-math-calculate-rem($size) {
+    $remSize: $size / 16px;
+    @return $remSize * 1rem;
+}
+/*----------------------------------------------------------------------------------------------*/
+/* pure-math-calculate-rem(12px, 32px)  */
+/*----------------------------------------------------------------------------------------------*/
+@function pure-math-calculate-em($target-px, $context) {
+    @return ($target-px / $context) * 1em;
+}

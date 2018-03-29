@@ -1,0 +1,249 @@
+﻿/*----------------------------------------------------------------------------------------------*/
+/*  PURE SCSS LIBRARY                                                                           */
+/*----------------------------------------------------------------------------------------------*/
+/*                                                                                              */
+/*  Name    :   Box Shadow                                                                      */
+/*  Version :   1.0.0                                                                           */
+/*  Git     :   https://github.com/TuruncuInternetSolutions/pure.git                            */
+/*                                                                                              */
+/*  by Turuncu Internet Solutions                                                               */
+/*  www.turuncuweb.net                                                                          */
+/*                                                                                              */
+/*----------------------------------------------------------------------------------------------*/
+/*  @include pure-box-shadow(); */
+/*----------------------------------------------------------------------------------------------*/
+@mixin pure-box-shadow($x: 1px, $y: 1px, $blur: 5px, $radius: 5px, $color: #000) {
+    -webkit-box-shadow: $x $y $blur $radius $color;
+    -moz-box-shadow: $x $y $blur $radius $color;
+    box-shadow: $x $y $blur $radius $color;
+}
+/*----------------------------------------------------------------------------------------------*/
+/*  @include pure-box-shadow-inset(2px,2px,5px,#000); */
+/*----------------------------------------------------------------------------------------------*/
+@mixin pure-box-shadow-inset($x: false, $y: false, $blur: false, $color: false) {
+    -webkit-box-shadow: inset $x $y $blur $color;
+    -moz-box-shadow: inset $x $y $blur $color;
+    box-shadow: inset $x $y $blur $color;
+}
+/*----------------------------------------------------------------------------------------------*/
+/*  @include pure-box-shadow-inner(2px,2px,5px,#000); */
+/*----------------------------------------------------------------------------------------------*/
+@mixin pure-box-shadow-inner($x: false, $y: false, $blur: false, $color: false) {
+  -webkit-box-shadow: inset $x $y $blur $color;
+     -moz-box-shadow: inset $x $y $blur $color;
+      box-shadow: inset $x $y $blur $color;
+}
+/*----------------------------------------------------------------------------------------------*/
+/*  @include pure-box-shadow-layered-paper(rgba(0,0,0,0.15), #eee); */
+/*----------------------------------------------------------------------------------------------*/
+@mixin pure-box-shadow-layered-paper($color: rgba(0,0,0,0.15), $color2: #eee) {
+    box-shadow: 0 1px 1px $color, 0 10px 0 -5px $color2, 0 10px 1px -4px $color, 0 20px 0 -10px $color2, 0 20px 1px -9px $color;
+}
+
+
+
+/*----------------------------------------------------------------------------------------------*/
+// Author:         Denis Malinochkin
+// Git:            https://github.com/mrmlnc/material-shadows
+/*----------------------------------------------------------------------------------------------*/
+@mixin z-depth-2dp() {
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .14), 0 1px 5px 0 rgba(0, 0, 0, .12), 0 3px 1px -2px rgba(0, 0, 0, .2);
+}
+
+@mixin z-depth-3dp() {
+    box-shadow: 0 3px 4px 0 rgba(0, 0, 0, .14), 0 1px 8px 0 rgba(0, 0, 0, .12), 0 3px 3px -2px rgba(0, 0, 0, .4);
+}
+
+@mixin z-depth-4dp() {
+    box-shadow: 0 4px 5px 0 rgba(0, 0, 0, .14), 0 1px 10px 0 rgba(0, 0, 0, .12), 0 2px 4px -1px rgba(0, 0, 0, .4);
+}
+
+@mixin z-depth-6dp() {
+    box-shadow: 0 6px 10px 0 rgba(0, 0, 0, .14), 0 1px 18px 0 rgba(0, 0, 0, .12), 0 3px 5px -1px rgba(0, 0, 0, .4);
+}
+
+@mixin z-depth-8dp() {
+    box-shadow: 0 8px 10px 1px rgba(0, 0, 0, .14), 0 3px 14px 2px rgba(0, 0, 0, .12), 0 5px 5px -3px rgba(0, 0, 0, .4);
+}
+
+@mixin z-depth-16dp() {
+    box-shadow: 0 16px 24px 2px rgba(0, 0, 0, .14), 0 6px 30px 5px rgba(0, 0, 0, .12), 0 8px 10px -5px rgba(0, 0, 0, .4);
+}
+
+@mixin z-depth-24dp() {
+    box-shadow: 0 9px 46px 8px rgba(0, 0, 0, .14), 0 24px 38px 3px rgba(0, 0, 0, .12), 0 11px 15px -7px rgba(0, 0, 0, .4);
+}
+
+@mixin z-depth($dp: 2) {
+    @if $dp == 2 {
+        @include z-depth-2dp();
+    }
+    @else if $dp == 3 {
+        @include z-depth-3dp();
+    }
+    @else if $dp == 4 {
+        @include z-depth-4dp();
+    }
+    @else if $dp == 6 {
+        @include z-depth-6dp();
+    }
+    @else if $dp == 8 {
+        @include z-depth-8dp();
+    }
+    @else if $dp == 16 {
+        @include z-depth-16dp();
+    }
+    @else if $dp == 24 {
+        @include z-depth-24dp();
+    }
+}
+
+@mixin z-depth-transition() {
+    transition: box-shadow .28s cubic-bezier(.4, 0, .2, 1);
+}
+
+@mixin z-depth-focus() {
+    box-shadow: 0 0 8px rgba(0, 0, 0, .18), 0 8px 16px rgba(0, 0, 0, .36);
+}
+
+@mixin z-depth-classes($transition: false, $focus: false) {
+    @if $transition == true {
+        &-transition {
+            @include z-depth-transition();
+        }
+    }
+
+    @if $focus == true {
+        &-focus {
+            @include z-depth-focus();
+        }
+    }
+    // The available values for the shadow depth
+    @each $depth in 2, 3, 4, 6, 8, 16, 24 {
+        &-#{$depth}dp {
+            @include z-depth($depth);
+        }
+    }
+}
+
+/*----------------------------------------------------------------------------------------------*/
+/*  MATERIAL DESIGN BOX SHADOWS */
+/*----------------------------------------------------------------------------------------------*/
+/*     http://codepen.io/prestopasto/pen/oLmgqm?editors=1100         */
+/*----------------------------------------------------------------------------------------------*/
+$KEY_UMBRA: rgba(0, 0, 0, 0.2);
+$KEY_PENUMBRA: rgba(0, 0, 0, 0.14);
+$AMBIENT: rgba(0, 0, 0, 0.12);
+$MIN_ANIMATION_LENGTH: 250ms;
+$MAX_ANIMATION_LENGTH: 400ms;
+$REFERENCE_SHADOWS: ( ( elevation: 0, shadows: ( (0, 0, 0, 0, $KEY_UMBRA), (0, 0, 0, 0, $KEY_PENUMBRA), (0, 0, 0, 0, $AMBIENT), ) ), ( elevation: 2, shadows: ( (0, 3, 1, -2, $KEY_UMBRA), (0, 2, 2, 0, $KEY_PENUMBRA), (0, 1, 5, 0, $AMBIENT), ) ), ( elevation: 3, shadows: ( (0, 3, 3, -2, $KEY_UMBRA), (0, 3, 4, 0, $KEY_PENUMBRA), (0, 1, 8, 0, $AMBIENT), ) ), ( elevation: 4, shadows: ( (0, 2, 4, -1, $KEY_UMBRA), (0, 4, 5, 0, $KEY_PENUMBRA), (0, 1, 10, 0, $AMBIENT), ) ), ( elevation: 6, shadows: ( (0, 3, 5, -1, $KEY_UMBRA), (0, 6, 10, 0, $KEY_PENUMBRA), (0, 1, 18, 0, $AMBIENT), ) ), ( elevation: 8, shadows: ( (0, 5, 5, -3, $KEY_UMBRA), (0, 8, 10, 1, $KEY_PENUMBRA), (0, 3, 14, 2, $AMBIENT), ) ), ( elevation: 16, shadows: ( (0, 8, 10, -5, $KEY_UMBRA), (0, 16, 24, 2, $KEY_PENUMBRA), (0, 6, 30, 5, $AMBIENT), ) ) );
+$materialElements: ( dialog: (24), picker: (24), nav-drawer: (16), right-drawer: 16, bottom-sheet: 16, fab: 6 12 active, sub-menu-3: 11, sub-menu-2: 10, sub-menu-1: 9, menu: 8, bottom-nav-bar: 8, card: 2 8 hover, raised-button: 2 8 active, snackbar: 6, app-bar: 4, refresh-indicator: 3, quick-entry: 2 3 active, search-bar: 2 3 active, switch: 1 );
+
+@function findBoundingShadowSets($elevation) {
+    @if $elevation < 0 {
+        @warn "Elevation is less than zero";
+    }
+
+    @for $i from 1 to length($REFERENCE_SHADOWS) {
+        $lower: nth($REFERENCE_SHADOWS, $i);
+        $upper: nth($REFERENCE_SHADOWS, $i + 1);
+
+        @if (map-get($lower, "elevation") <=$elevation) and (map-get($upper, "elevation") > $elevation) {
+            @return ($lower, $upper);
+        }
+    }
+
+    $lower: nth( $REFERENCE_SHADOWS, length($REFERENCE_SHADOWS) - 1);
+    $upper: nth( $REFERENCE_SHADOWS, length($REFERENCE_SHADOWS));
+    @return ($lower, $upper);
+}
+
+@function lerpShadow($x, $shadow1, $shadow2) {
+    $newX: round(pure-math-lerp($x, nth($shadow1, 1), nth($shadow2, 1)))+0px;
+    $newY: round(pure-math-lerp($x, nth($shadow1, 2), nth($shadow2, 2)))+0px;
+    $newBlur: round(pure-math-lerp($x, nth($shadow1, 3), nth($shadow2, 3)))+0px;
+    $newSpread: round(pure-math-lerp($x, nth($shadow1, 4), nth($shadow2, 4)))+0px;
+    $newColor: nth($shadow1, 5);
+    @return ($newX $newY $newBlur $newSpread $newColor);
+}
+
+@function calculateShadowSetAtDepth($elevation) {
+    $bounds: findBoundingShadowSets($elevation);
+    $min: nth($bounds, 1);
+    $max: nth($bounds, 2);
+    $x: ($elevation - map-get($min, "elevation")) / (map-get($max, "elevation") - map-get($min, "elevation"));
+    $elevationShadows: ();
+
+    @for $i from 1 to length(map-get($min, "shadows")) + 1 {
+        $newShadow: lerpShadow($x, nth(map-get($min, "shadows"), $i), nth(map-get($max, "shadows"), $i));
+        $elevationShadows: append($elevationShadows, $newShadow, comma);
+    }
+
+    @return $elevationShadows;
+}
+
+@mixin mdElevation($elevation1, $elevation2: null, $state: null) {
+    @if $elevation1==0 {
+        box-shadow: none !important;
+    }
+    @else {
+        box-shadow: calculateShadowSetAtDepth($elevation1);
+    }
+
+    @if $elevation2 != null {
+        @include mdElevationTransition($elevation2 -$elevation2);
+
+        &:#{$state} {
+            @if $elevation1==0 {
+                box-shadow: none !important;
+            }
+            @else {
+                box-shadow: calculateShadowSetAtDepth($elevation2);
+            }
+        }
+    }
+}
+
+@mixin mdElementElevation($elementName) {
+
+    $attr: map-get($materialElements, $elementName);
+
+    @if length($attr) == 1 {
+        @include mdElevation(nth($attr, 1));
+    }
+    @else {
+        @include mdElevation(nth($attr, 1), nth($attr, 2), nth($attr, 3));
+    }
+}
+
+@mixin mdElevationChange($lowerElevation, $upperElevation, $state) {
+    @include mdElevation($lowerElevation);
+    @include mdElevationTransition($upperElevation -$lowerElevation);
+    &#{$state} {
+        @include mdElevation($upperElevation);
+    }
+}
+
+@mixin mdElevationTransition($elevationChange: 6, $easing: cubic-bezier(.4, 0, .2, 1)) {
+    $duration: pure-math-lerp($elevationChange/24, $MIN_ANIMATION_LENGTH, $MAX_ANIMATION_LENGTH);
+    transition: box-shadow $duration $easing;
+}
+
+@for $zValue from 0 through 24 {
+    .md-elevation-z#{$zValue} {
+        @include mdElevation($zValue);
+    }
+}
+
+@each $element, $attr in $materialElements {
+    .md-elevation-#{$element} {
+        @if length($attr) == 1 {
+            @include mdElevation(nth($attr, 1));
+        }
+        @else {
+            @include mdElevation(nth($attr, 1), nth($attr, 2), nth($attr, 3));
+        }
+    }
+}
+
+/*----------------------------------------------------------------------------------------------*/

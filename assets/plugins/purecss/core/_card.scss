@@ -1,0 +1,71 @@
+﻿/*----------------------------------------------------------------------------------------------*/
+/*  PURE SCSS LIBRARY                                                                           */
+/*----------------------------------------------------------------------------------------------*/
+/*                                                                                              */
+/*  Name    :   Card                                                                            */
+/*  Version :   1.0.0                                                                           */
+/*  Git     :   https://github.com/TuruncuInternetSolutions/pure.git                            */
+/*                                                                                              */
+/*  by Turuncu Internet Solutions                                                               */
+/*  www.turuncuweb.net                                                                          */
+/*                                                                                              */
+/*----------------------------------------------------------------------------------------------*/
+@mixin pure-card($bgColor: #fff, $padding: 15px, $borderColor: #efefef, $menuPadding: 10px, $menuHoverColor: #efefef) {
+    background-color: $bgColor;
+
+    & h1, h2, h3, h4, h5, p, ul {
+        margin: 0;
+        padding: 0;
+    }
+
+    & ul {
+        list-style: none;
+    }
+
+    & > .card-header {
+        h1 {
+            padding: $padding;
+            margin: 0;
+            border-bottom: 1px solid $borderColor;
+        }
+    }
+
+    & > .card-tools {
+        padding: $padding;
+        margin: 0;
+        border-bottom: 1px solid $borderColor;
+    }
+
+    & > .card-body {
+        padding: $padding;
+        margin: 0;
+
+        .card-menu {
+            margin: 0 -$padding;
+
+            li {
+                a {
+                    display: block;
+                    padding: $menuPadding;
+                    border-bottom: 1px solid $borderColor;
+
+                    &:hover {
+                        background-color: $menuHoverColor;
+                    }
+                }
+
+                &:last-child {
+                    a {
+                        border: none;
+                    }
+                }
+            }
+        }
+    }
+
+    & > .card-footer {
+        border-top: 1px solid $borderColor;
+        padding: $padding;
+        margin: 0;
+    }
+}

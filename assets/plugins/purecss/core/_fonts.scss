@@ -1,0 +1,91 @@
+﻿/*----------------------------------------------------------------------------------------------*/
+/*  PURE SCSS LIBRARY                                                                           */
+/*----------------------------------------------------------------------------------------------*/
+/*                                                                                              */
+/*  Name    :   Fonts                                                                           */
+/*  Version :   1.0.0                                                                           */
+/*  Git     :   https://github.com/TuruncuInternetSolutions/pure.git                            */
+/*                                                                                              */
+/*  by Turuncu Internet Solutions                                                               */
+/*  www.turuncuweb.net                                                                          */
+/*                                                                                              */
+/*----------------------------------------------------------------------------------------------*/
+/* FONT STACKS */
+/*----------------------------------------------------------------------------------------------*/
+$pure-font-stack-helvetica: ( "Helvetica Neue", "Helvetica", "Arial", sans-serif, );
+$pure-font-stack-lucida-grande: ( "Lucida Grande", "Lucida Sans Unicode", "Geneva", "Verdana", sans-serif, );
+$pure-font-stack-verdana: ( "Verdana", "Geneva", sans-serif, );
+$pure-font-stack-system: ( -apple-system, BlinkMacSystemFont, "Avenir Next", "Avenir", "Segoe UI", "Lucida Grande", "Helvetica Neue", "Helvetica", "Fira Sans", "Roboto", "Noto", "Droid Sans", "Cantarell", "Oxygen", "Ubuntu", "Franklin Gothic Medium", "Century Gothic", "Liberation Sans", sans-serif, );
+$pure-font-stack-garamond: ( "Garamond", "Baskerville", "Baskerville Old Face", "Hoefler Text", "Times New Roman", serif, );
+$pure-font-stack-georgia: ( "Georgia", "Times", "Times New Roman", serif, );
+$pure-font-stack-hoefler-text: ( "Hoefler Text", "Baskerville Old Face", "Garamond", "Times New Roman", serif, );
+$pure-font-stack-consolas: ( "Consolas", "monaco", monospace, );
+$pure-font-stack-courier-new: ( "Courier New", "Courier", "Lucida Sans Typewriter", "Lucida Typewriter", monospace, );
+$pure-font-stack-monaco: ( "Monaco", "Consolas", "Lucida Console", monospace, );
+/*----------------------------------------------------------------------------------------------*/
+/*
+    @include font-face(Samplino, fonts/Samplino);
+    @include font-face("Samplina Neue", fonts/SamplinaNeue, bold, italic);
+    @include font-face(Samplinoff, fonts/Samplinoff, null, null, woff);
+    @include font-face(Samplinal, fonts/Samplinal, 500, normal, eot woff2 woff);
+*/
+/*----------------------------------------------------------------------------------------------*/
+@mixin pure-font-face($name, $path, $weight: null, $style: null, $exts: eot woff2 woff ttf svg) {
+    $src: null;
+
+    $extmods: ( eot: "?", svg: "#" + pure-string-replace($name, " ", "_") );
+
+    $formats: ( otf: "opentype", ttf: "truetype" );
+
+    @each $ext in $exts {
+        $extmod: if(map-has-key($extmods, $ext), $ext + map-get($extmods, $ext), $ext);
+        $format: if(map-has-key($formats, $ext), map-get($formats, $ext), $ext);
+        $src: append($src, url(quote($path + "." + $extmod)) format(quote($format)), comma);
+    }
+
+    @font-face {
+        font-family: quote($name);
+        font-style: $style;
+        font-weight: $weight;
+        src: $src;
+    }
+}
+/*----------------------------------------------------------------------------------------------*/
+/* Google Fonts */
+/* @include pure-google-font("Roboto", "Open Sans"); */
+/*----------------------------------------------------------------------------------------------*/
+@mixin pure-google-font($fonts...) {
+    $url: "https://fonts.googleapis.com/css?family=";
+    $nb: 0;
+
+    @each $font-name in $fonts {
+
+        $font-name: pure-string-replace($font-name, " ", "+");
+        $nb: $nb + 1;
+        $nb-word: 0;
+
+        @each $word in $font-name {
+            $nb-word: $nb-word + 1;
+            $url: $url + $word;
+
+            @if $nb-word < length($font-name) {
+                $url: $url + "+";
+            }
+        }
+
+        @if $nb < length($fonts) {
+            $url: $url + "|";
+        }
+    }
+
+    $url: $url + ":300,400,700&amp;subset=latin-ext";
+
+    @import url(#{$url});
+}
+/*----------------------------------------------------------------------------------------------*/
+/* @include pure-optimize-fonts(); */
+/*----------------------------------------------------------------------------------------------*/
+@mixin pure-optimize-fonts(){
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+}

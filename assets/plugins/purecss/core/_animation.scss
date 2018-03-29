@@ -1,0 +1,457 @@
+﻿/*----------------------------------------------------------------------------------------------*/
+/*  PURE SCSS LIBRARY                                                                           */
+/*----------------------------------------------------------------------------------------------*/
+/*                                                                                              */
+/*  Name    :   Animation                                                                       */
+/*  Version :   1.0.0                                                                           */
+/*  Git     :   https://github.com/TuruncuInternetSolutions/pure.git                            */
+/*                                                                                              */
+/*  by Turuncu Internet Solutions                                                               */
+/*  www.turuncuweb.net                                                                          */
+/*                                                                                              */
+/*----------------------------------------------------------------------------------------------*/
+/* Timing Variables */
+/*----------------------------------------------------------------------------------------------*/
+$pure-animation-ease-in-quad:      cubic-bezier(0.550,  0.085, 0.680, 0.530);
+$pure-animation-ease-in-cubic:     cubic-bezier(0.550,  0.055, 0.675, 0.190);
+$pure-animation-ease-in-quart:     cubic-bezier(0.895,  0.030, 0.685, 0.220);
+$pure-animation-ease-in-quint:     cubic-bezier(0.755,  0.050, 0.855, 0.060);
+$pure-animation-ease-in-sine:      cubic-bezier(0.470,  0.000, 0.745, 0.715);
+$pure-animation-ease-in-expo:      cubic-bezier(0.950,  0.050, 0.795, 0.035);
+$pure-animation-ease-in-circ:      cubic-bezier(0.600,  0.040, 0.980, 0.335);
+$pure-animation-ease-in-back:      cubic-bezier(0.600, -0.280, 0.735, 0.045);
+
+$pure-animation-ease-out-quad:     cubic-bezier(0.250,  0.460, 0.450, 0.940);
+$pure-animation-ease-out-cubic:    cubic-bezier(0.215,  0.610, 0.355, 1.000);
+$pure-animation-ease-out-quart:    cubic-bezier(0.165,  0.840, 0.440, 1.000);
+$pure-animation-ease-out-quint:    cubic-bezier(0.230,  1.000, 0.320, 1.000);
+$pure-animation-ease-out-sine:     cubic-bezier(0.390,  0.575, 0.565, 1.000);
+$pure-animation-ease-out-expo:     cubic-bezier(0.190,  1.000, 0.220, 1.000);
+$pure-animation-ease-out-circ:     cubic-bezier(0.075,  0.820, 0.165, 1.000);
+$pure-animation-ease-out-back:     cubic-bezier(0.175,  0.885, 0.320, 1.275);
+
+$pure-animation-ease-in-out-quad:  cubic-bezier(0.455,  0.030, 0.515, 0.955);
+$pure-animation-ease-in-out-cubic: cubic-bezier(0.645,  0.045, 0.355, 1.000);
+$pure-animation-ease-in-out-quart: cubic-bezier(0.770,  0.000, 0.175, 1.000);
+$pure-animation-ease-in-out-quint: cubic-bezier(0.860,  0.000, 0.070, 1.000);
+$pure-animation-ease-in-out-sine:  cubic-bezier(0.445,  0.050, 0.550, 0.950);
+$pure-animation-ease-in-out-expo:  cubic-bezier(1.000,  0.000, 0.000, 1.000);
+$pure-animation-ease-in-out-circ:  cubic-bezier(0.785,  0.135, 0.150, 0.860);
+$pure-animation-ease-in-out-back:  cubic-bezier(0.680, -0.550, 0.265, 1.550);
+/*----------------------------------------------------------------------------------------------*/
+/*  @include pure-animation(animation-name); */
+/*----------------------------------------------------------------------------------------------*/
+@mixin pure-animation($params) {
+    -webkit-animation: $params;
+    -moz-animation: $params;
+    -o-animation: $params;
+    animation: $params;
+}
+/*----------------------------------------------------------------------------------------------*/
+/*    
+    @include pure-animation-build(slideUp 900ms ease both){
+        0% {
+            transform: translate3d(0, -200px, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+    };
+*/
+/*----------------------------------------------------------------------------------------------*/
+@mixin pure-animation-build($params) {
+    $list: str-split(#{$params}, ' ');
+    $name: nth($list, 1);
+    @include pure-animation($params);
+
+    @include pure-keyframes(#{$name}) {
+        @content
+    }
+}
+/*----------------------------------------------------------------------------------------------*/
+/*  
+    @include pure-keyframes(animation-name){
+        0% {
+            transform: translate3d(0, -200px, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+    }; 
+*/
+/*----------------------------------------------------------------------------------------------*/
+@mixin pure-keyframes($animation-name) {
+    @-webkit-keyframes #{$animation-name} {
+        @content;
+    }
+
+    @-moz-keyframes #{$animation-name} {
+        @content;
+    }
+
+    @-ms-keyframes #{$animation-name} {
+        @content;
+    }
+
+    @-o-keyframes #{$animation-name} {
+        @content;
+    }
+
+    @keyframes #{$animation-name} {
+        @content;
+    }
+}
+/*----------------------------------------------------------------------------------------------*/
+/* @include pure-transition(width 2s); */
+/*----------------------------------------------------------------------------------------------*/
+@mixin pure-transition-all($args...) {
+    -webkit-transition: $args;
+    -moz-transition: $args;
+    -o-transition: $args;
+    transition: $args;
+}
+/*----------------------------------------------------------------------------------------------*/
+/* @include pure-transition(all, 0.5s, ease); */
+/*----------------------------------------------------------------------------------------------*/
+@mixin pure-transition($what: all, $time: 0.2s, $how: ease-in-out) {
+    -webkit-transition: $what $time $how;
+    -moz-transition:    $what $time $how;
+    -ms-transition:     $what $time $how;
+    -o-transition:      $what $time $how;
+    transition:         $what $time $how;
+}
+/*----------------------------------------------------------------------------------------------*/
+/* @include pure-transform(translateY(0)); */
+/*----------------------------------------------------------------------------------------------*/
+@mixin pure-transform($args...) {
+    -webkit-transform: $args;
+    -moz-transform: $args;
+    -o-transform: $args;
+    transform: $args;
+}
+/*----------------------------------------------------------------------------------------------*/
+/* @include pure-transform-origin(top center 50%); */
+/*----------------------------------------------------------------------------------------------*/
+@mixin pure-transform-origin($args...) {
+    -webkit-transform-origin: $args;
+    -moz-transform-origin: $args;
+    -ms-transform-origin: $args;
+    -o-transform-origin: $args;
+    transform-origin: $args;
+}
+/*----------------------------------------------------------------------------------------------*/
+/* @include pure-translateY(-15px); */
+/*----------------------------------------------------------------------------------------------*/
+@mixin pure-translateY($trans-y) {
+    @include pure-transform(translateY($trans-y));
+}
+/*----------------------------------------------------------------------------------------------*/
+/* @include pure-translateX(-15px); */
+/*----------------------------------------------------------------------------------------------*/
+@mixin pure-translateX($trans-x) {
+    @include pure-transform(translateX($trans-x));
+}
+/*----------------------------------------------------------------------------------------------*/
+/* @include pure-translateZ(-15px); */
+/*----------------------------------------------------------------------------------------------*/
+@mixin pure-translateZ($trans-z) {
+    @include pure-transform(translateZ($trans-z));
+}
+/*----------------------------------------------------------------------------------------------*/
+/* @include pure-translate3d(-15px); */
+/*----------------------------------------------------------------------------------------------*/
+@mixin pure-translate3d($translate-x,$translate-y,$translate-z) {
+    @include pure-transform(translate3d($translate-x, $translate-y, $translate-z));
+}
+/*----------------------------------------------------------------------------------------------*/
+/* @include pure-skew(10deg, 10deg); */
+/*----------------------------------------------------------------------------------------------*/
+@mixin pure-skew( $skew-x, $skew-y) {
+    @include pure-transform(skew($skew-x, $skew-y));
+}
+/*----------------------------------------------------------------------------------------------*/
+/* @include pure-skewX(10deg); */
+/*----------------------------------------------------------------------------------------------*/
+@mixin pure-skewX( $skew-x) {
+    @include pure-transform(skewX($skew-x));
+}
+/*----------------------------------------------------------------------------------------------*/
+/* @include pure-skewY(10deg); */
+/*----------------------------------------------------------------------------------------------*/
+@mixin pure-skewY( $skew-y) {
+    @include pure-transform(skewY($skew-y));
+}
+/*----------------------------------------------------------------------------------------------*/
+/* @include pure-scale(2, 2); */
+/*----------------------------------------------------------------------------------------------*/
+@mixin pure-scale($scale-x, $scale-y: $scale-x) {
+    @include pure-transform(scale($scale-x, $scale-y));
+}
+
+
+
+
+
+/*----------------------------------------------------------------------------------------------*/
+/* Built-In Keyframes */
+/* @include pure-animation(pureAnimFlash 900ms ease both); */
+/*----------------------------------------------------------------------------------------------*/
+@include pure-keyframes(pureAnimFlash) {
+    0% {
+        opacity: 1;
+    }
+
+    25% {
+        opacity: 0;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    75% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+@include pure-keyframes(pureAnimBounce) {
+    0% {
+        @include pure-translateY(0);
+    }
+
+    20% {
+        @include pure-translateY(0);
+    }
+
+    40% {
+        @include pure-translateY(-30px);
+    }
+
+    50% {
+        @include pure-translateY(0);
+    }
+
+    60% {
+        @include pure-translateY(-15px);
+    }
+
+    80% {
+        @include pure-translateY(0);
+    }
+
+    100% {
+        @include pure-translateY(0);
+    }
+}
+
+@include pure-keyframes(pureAnimShake) {
+    0% {
+        @include pure-translateX(0);
+    }
+
+    10% {
+        @include pure-translateX(-10px);
+    }
+
+    20% {
+        @include pure-translateX(10px);
+    }
+
+    30% {
+        @include pure-translateX(-10px);
+    }
+
+    40% {
+        @include pure-translateX(10px);
+    }
+
+    50% {
+        @include pure-translateX(-10px);
+    }
+
+    60% {
+        @include pure-translateX(10px);
+    }
+
+    70% {
+        @include pure-translateX(-10px);
+    }
+
+    80% {
+        @include pure-translateX(10px);
+    }
+
+    90% {
+        @include pure-translateX(-10px);
+    }
+
+    100% {
+        @include pure-translateX(0);
+    }
+}
+
+@include pure-keyframes(pureAnimTada) {
+    0% {
+        @include pure-scale(1);
+    }
+
+    10% {
+        @include pure-transform(scale(0.9) rotate(-3deg));
+    }
+
+    20% {
+        @include pure-transform(scale(0.9) rotate(-3deg));
+    }
+
+    30% {
+        @include pure-transform(scale(1.1) rotate(3deg));
+    }
+
+    40% {
+        @include pure-transform(scale(1.1) rotate(-3deg));
+    }
+
+    50% {
+        @include pure-transform(scale(1.1) rotate(3deg));
+    }
+
+    60% {
+        @include pure-transform(scale(1.1) rotate(-3deg));
+    }
+
+    70% {
+        @include pure-transform(scale(1.1) rotate(3deg));
+    }
+
+    80% {
+        @include pure-transform(scale(1.1) rotate(-3deg));
+    }
+
+    90% {
+        @include pure-transform(scale(1.1) rotate(3deg));
+    }
+
+    100% {
+        @include pure-transform(scale(1) rotate(0));
+    }
+}
+
+@include pure-keyframes(pureAnimSwing) {
+    20%, 40%, 60%, 80%, 100% {
+        @include pure-transform-origin(top center 50%);
+    }
+
+    20% {
+        @include pure-transform(rotate(15deg));
+    }
+
+    40% {
+        @include pure-transform(rotate(-10deg));
+    }
+
+    60% {
+        @include pure-transform(rotate(5deg));
+    }
+
+    80% {
+        @include pure-transform(rotate(-5deg));
+    }
+
+    100% {
+        @include pure-transform(rotate(0deg));
+    }
+}
+
+@include pure-keyframes(pureAnimWobble) {
+    0% {
+        @include pure-translateX(0%);
+    }
+
+    15% {
+        @include pure-transform(translateX(-25%) rotate(-5deg));
+    }
+
+    30% {
+        @include pure-transform(translateX(20%) rotate(3deg));
+    }
+
+    45% {
+        @include pure-transform(translateX(-15%) rotate(-3deg));
+    }
+
+    60% {
+        @include pure-transform(translateX(10%) rotate(2deg));
+    }
+
+    75% {
+        @include pure-transform(translateX(-5%) rotate(-1deg));
+    }
+
+    100% {
+        @include pure-transform(translateX(0%));
+    }
+}
+
+@include pure-keyframes(pureAnimPulse) {
+    0% {
+        @include pure-scale(1);
+    }
+
+    50% {
+        @include pure-scale(1.1);
+    }
+
+    100% {
+        @include pure-scale(1);
+    }
+}
+
+@include pure-keyframes(pureAnimWiggle) {
+    0% {
+        @include pure-skewX(9deg);
+    }
+
+    10% {
+        @include pure-skewX(-8deg);
+    }
+
+    20% {
+        @include pure-skewX(7deg);
+    }
+
+    30% {
+        @include pure-skewX(-6deg);
+    }
+
+    40% {
+        @include pure-skewX(5deg);
+    }
+
+    50% {
+        @include pure-skewX(-4deg);
+    }
+
+    60% {
+        @include pure-skewX(3deg);
+    }
+
+    70% {
+        @include pure-skewX(-2deg);
+    }
+
+    80% {
+        @include pure-skewX(1deg);
+    }
+
+    90% {
+        @include pure-skewX(0deg);
+    }
+
+    100% {
+        @include pure-skewX(0deg);
+    }
+}

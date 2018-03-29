@@ -1,0 +1,153 @@
+﻿/*----------------------------------------------------------------------------------------------*/
+/*  PURE SCSS LIBRARY                                                                           */
+/*----------------------------------------------------------------------------------------------*/
+/*                                                                                              */
+/*  Name    :   Elements                                                                        */
+/*  Version :   1.0.0                                                                           */
+/*  Git     :   https://github.com/TuruncuInternetSolutions/pure.git                            */
+/*                                                                                              */
+/*  by Turuncu Internet Solutions                                                               */
+/*  www.turuncuweb.net                                                                          */
+/*                                                                                              */
+/*----------------------------------------------------------------------------------------------*/
+/* @include pure-radial-out(#68d8c7); */
+/*----------------------------------------------------------------------------------------------*/
+@mixin pure-radial-out($color: #68d8c7) {
+    backface-visibility: hidden;
+    overflow: hidden;
+    position: relative;
+
+    @include pure-translateZ(0);
+
+    &:before {
+        content: "";
+        z-index: -1;
+        border-radius: 100%;
+        background: $color;
+
+        @include pure-position(absolute, -50px, 0, 0, 0);
+        @include pure-scale(0);
+        @include pure-transition(transform, 0.4s, ease-out);
+    }
+
+    .icon {
+        @include pure-scale(1);
+        @include pure-transition(transform, 0.4s, ease-out);
+    }
+
+    .title {
+        top: 20px;
+        position: relative;
+        @include pure-transition(all, 0.4s, ease-out);
+    }
+
+    &:hover, &:focus {
+        &:before {
+            @include pure-scale(2);
+        }
+
+        .icon {
+            top: -25px;
+            @include pure-scale(1.5);
+        }
+
+        .title {
+            top: 10px;
+        }
+    }
+}
+/*----------------------------------------------------------------------------------------------*/
+/* @include pure-position-container(10, 15px); */
+/*----------------------------------------------------------------------------------------------*/
+@mixin pure-position-container($pure-position-overlay-zindex: 10, $pure-position-overlay-margin: 0) {
+    display: inline-block;
+    position: relative;
+    max-width: 100%;
+    vertical-align: middle;
+
+    [class^="position-"] {
+        z-index: $pure-position-overlay-zindex;
+    }
+
+    .position-top-left {
+        @include pure-position(absolute, $pure-position-overlay-margin,null,null,$pure-position-overlay-margin);
+    }
+
+    .position-top, .position-top-center {
+        text-align: center;
+        @include pure-position(absolute, $pure-position-overlay-margin,$pure-position-overlay-margin,null,$pure-position-overlay-margin);
+    }
+
+    .position-top-right {
+        @include pure-position(absolute, $pure-position-overlay-margin,$pure-position-overlay-margin,null,null);
+    }
+
+    .position-middle-left {
+        @include pure-position(absolute, 50%, null, null, $pure-position-overlay-margin);
+        @include pure-transform(translateY(-50%));
+    }
+
+    .position-middle, .position-middle-center {
+        display: table;
+        max-width: 100%;
+
+        @include pure-position(absolute, 50%, null, null, 50%);
+        @include pure-transform(translate(-50%, -50%));
+    }
+
+    .position-middle-right {
+        text-align: right;
+
+        @include pure-position(absolute, 50%, $pure-position-overlay-margin, null, null);
+        @include pure-transform(translateY(-50%));
+    }
+
+    .position-bottom-left {
+        @include pure-position(absolute, null,null,$pure-position-overlay-margin,$pure-position-overlay-margin);
+    }
+
+    .position-bottom, .position-bottom-center {
+        text-align: center;
+        @include pure-position(absolute, null,$pure-position-overlay-margin,$pure-position-overlay-margin,$pure-position-overlay-margin);
+    }
+
+    .position-bottom-right {
+        @include pure-position(absolute, null,$pure-position-overlay-margin,$pure-position-overlay-margin,null);
+    }
+}
+/*----------------------------------------------------------------------------------------------*/
+/* @include pure-cover-box(); */
+/*----------------------------------------------------------------------------------------------*/
+@mixin pure-cover-box($color: #fe0, $toTop: -10px) {
+    display: block;
+    overflow: hidden;
+    position: relative;
+    @include pure-background-image-cover();
+
+    .content {
+        z-index: 2;
+        position: relative;
+        @include pure-transition(all, 0.2s, cubic-bezier(0.645, 0.045, 0.355, 1));
+    }
+
+    .cover {
+        content: "";
+        display: block;
+        background-color: $color;
+        z-index: 1;
+
+        @include pure-position(absolute, 100%, null null 0);
+        @include pure-size(100%, 100%);
+        @include pure-transition(all, 0.2s, cubic-bezier(0.645, 0.045, 0.355, 1));
+    }
+
+    &:hover {
+        .cover {
+            top: 0;
+        }
+
+        .content {
+            @include pure-translateY($toTop);
+        }
+    }
+}

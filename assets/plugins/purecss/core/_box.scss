@@ -1,0 +1,62 @@
+﻿/*----------------------------------------------------------------------------------------------*/
+/*  PURE SCSS LIBRARY                                                                           */
+/*----------------------------------------------------------------------------------------------*/
+/*                                                                                              */
+/*  Name    :   Box                                                                             */
+/*  Version :   1.0.0                                                                           */
+/*  Git     :   https://github.com/TuruncuInternetSolutions/pure.git                            */
+/*                                                                                              */
+/*  by Turuncu Internet Solutions                                                               */
+/*  www.turuncuweb.net                                                                          */
+/*                                                                                              */
+/*----------------------------------------------------------------------------------------------*/
+@mixin pure-box($orient: horizontal, $pack: center, $align: center) {
+    display: -webkit-box;
+    display: -moz-box;
+    display: box;
+
+    @include pure-prefix(box-orient, $orient);
+    @include pure-prefix(box-orient, $orient);
+    @include pure-prefix(box-pack, $pack);
+    @include pure-prefix(box-align, $align);
+}
+/*----------------------------------------------------------------------------------------------*/
+@mixin pure-box-sizing($type: border-box) {
+    @include pure-prefix(box-sizing, $type);
+}
+/*----------------------------------------------------------------------------------------------*/
+@mixin pure-border-radius($radius: 5px) {
+    @include pure-prefix(border-radius, $radius);
+}
+/*----------------------------------------------------------------------------------------------*/
+@mixin pure-border-radius-separate($topLeftRadius: 5px, $topRightRadius: 5px, $bottomLeftRadius: 5px, $bottomRightRadius: 5px) {
+    @include pure-prefix(border-top-left-radius, $topLeftRadius);
+    @include pure-prefix(border-top-right-radius, $topRightRadius);
+    @include pure-prefix(border-bottom-right-radius, $bottomRightRadius);
+    @include pure-prefix(border-bottom-left-radius, $bottomLeftRadius);
+}
+/*----------------------------------------------------------------------------------------------*/
+@mixin pure-double-borders($colorOne: #3C3C3C, $colorTwo: #999999, $radius: 0) {
+    border: 1px solid $colorOne;
+
+    @include pure-prefix(box-shadow, 0 0 0 1px $colorTwo);
+    @include pure-border-radius( $radius );
+}
+/*----------------------------------------------------------------------------------------------*/
+@mixin pure-triple-borders($colorOne: #3C3C3C, $colorTwo: #999999, $colorThree: #000000, $radius: 0) {
+    border: 1px solid $colorOne;
+
+    @include pure-border-radius($radius);
+
+    @include pure-prefix(box-shadow, "0 0 0 1px #{$colorTwo}, 0 0 0 2px #{$colorThree}");
+}
+/*----------------------------------------------------------------------------------------------*/
+@mixin pure-outline-radius($radius: 5px) {
+    @include pure-prefix(outline-radius, $radius);
+}
+/*----------------------------------------------------------------------------------------------*/
+@mixin pure-box-flip($scaleX: -1) {
+    @include pure-scaleX($scaleX);
+    filter: FlipH;
+    -ms-filter: "FlipH";
+}

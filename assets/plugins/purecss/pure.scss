@@ -1,0 +1,50 @@
+@import "core/debugger";
+@import "core/startup";
+@import "core/functions";
+@import "core/selectors";
+@import "core/media-queries";
+@import "core/events";
+@import "core/colors";
+@import "core/animation";
+@import "core/filters";
+@import "core/fonts";
+@import "core/list";
+@import "core/text";
+@import "core/box-shadow";
+@import "core/background";
+@import "core/mixins";
+@import "core/scrollbar";
+@import "core/print";
+@import "core/box";
+@import "core/card";
+@import "core/image";
+@import "core/bootstrap";
+@import "core/elements"; /*----------------------------------------------------------*/
+/* IMAGES */
+/*----------------------------------------------------------*/
+
+.pure-cover-image {
+	@include pure-background-image-cover();
+}
+/*----------------------------------------------------------*/
+/* OVERLAY */
+/*----------------------------------------------------------*/
+/*----------------------------------------------------------*/
+/* EFFECTS */
+/*----------------------------------------------------------*/
+/* Miscs */
+.pure-padding-30 {
+	padding: 30px;
+}
+
+.margin-15 {
+	margin-top: 15px;
+}
+
+.margin-30 {
+	margin-top: 30px;
+}
+
+.margin-60 {
+	margin-top: 60px;
+}
