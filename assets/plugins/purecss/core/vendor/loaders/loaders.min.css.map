@@ -1,0 +1,23 @@
+{
+    "version": 3,
+    "mappings": "",
+    "sources": [
+        "loaders.scss",
+        "_variables.scss",
+        "_animations.scss",
+        "loaders/_loader01.scss",
+        "loaders/_loader02.scss",
+        "loaders/_loader03.scss",
+        "loaders/_loader04.scss",
+        "loaders/_loader05.scss",
+        "loaders/_loader06.scss",
+        "loaders/_loader07.scss",
+        "loaders/_loader08.scss",
+        "loaders/_loader09.scss",
+        "loaders/_loader10.scss",
+        "loaders/_loader11.scss",
+        "loaders/_loader12.scss"
+    ],
+    "names": [],
+    "file": "loaders.min.css"
+}
