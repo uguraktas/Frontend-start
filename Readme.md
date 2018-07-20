@@ -4,7 +4,7 @@
 İçerisin'de bulunan Plugin ve Kütüphaneler;
 
 
-* [Bootstrap](https://github.com/twbs/bootstrap) - Version 4.1.0
+* [Bootstrap](https://github.com/twbs/bootstrap) - Version 4.1.2
 * [Animate CSS](https://github.com/daneden/animate.css) - Version 3.5.2
 * [Jquery](https://github.com/jquery/jquery) - Version 3.3.1
 * [Magnific Popup](https://github.com/dimsemenov/Magnific-Popup) - Version 1.1.0
